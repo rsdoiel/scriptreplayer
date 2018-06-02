@@ -1,0 +1,36 @@
+{{- define "scriptreplayer.tmpl" -}}
+<!DOCTYPE html>
+<html>
+  <head>
+    {{ with .title -}}<title>{{- . -}}</title>{{- end }}
+    <link rel="stylesheet" href="node_modules/xterm/dist/xterm.css">
+    <style>
+    .terminal {
+        font-family: monospace;
+        position: absolute;
+    }
+    </style>
+    {{ with .csspath -}}<link rel="stylesheet" href="{{- . -}}" >{{- end }}
+  </head>
+  <body>
+  <header>
+  </header>
+  <section>
+    {{ with .title -}}<h1>{{- . -}}</h1>{{- end }}
+    <pre id="terminal"></pre><p>
+    <hr />
+    The terminal window should be above this.
+  </section>
+  <script src="node_modules/xterm/dist/xterm.js"></script>
+  <script src="js/scriptreplayer.js"></script>
+  <script>
+  (function (window, document) {
+      "use strict";
+      console.log("DEBUG Calling scriptreplayer");
+      scriptreplayer.run("terminal", new URL("../{{- .performance -}}", window.location));
+      console.log("All Done!");
+  }(window, document));
+  </script>
+  </body>
+</html>
+{{- end -}}
